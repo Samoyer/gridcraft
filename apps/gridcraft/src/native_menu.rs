@@ -1,10 +1,15 @@
 //! macOS: the native menu bar (File, Edit, View, Insert, Format, Tools, Data, Window, Help), as
 //! a desktop spreadsheet has on the Mac. Items run the same commands as the ribbon.
+//!
+//! Titles and labels go through [`Language::tr`] like the rest of the interface, so the menu bar
+//! follows the interface language. macOS builds its menu once, so a language change rebuilds it
+//! ([`NativeMenu::needs_reinstall`]).
 
 use std::str::FromStr;
 use std::sync::mpsc::{Receiver, channel};
 
 use gridcraft_ui_egui::SheetApp;
+use gridcraft_ui_egui::i18n::Language;
 use muda::accelerator::Accelerator;
 use muda::{CheckMenuItem, Menu, MenuEvent, MenuItem, PredefinedMenuItem, Submenu};
 use serde_json::{Value, json};
@@ -186,6 +191,8 @@ pub struct NativeMenu {
     _menu: Menu,
     events: Receiver<MenuEvent>,
     theme_items: Vec<(&'static str, CheckMenuItem)>,
+    /// The language this bar was built in; a different one needs a rebuild.
+    language: Language,
 }
 
 fn select_theme(app: &mut SheetApp, id: &str) -> bool {
@@ -200,10 +207,10 @@ fn select_theme(app: &mut SheetApp, id: &str) -> bool {
 }
 
 impl NativeMenu {
-    pub fn install(ctx: &egui::Context) -> NativeMenu {
+    pub fn install(ctx: &egui::Context, language: Language) -> NativeMenu {
         let menu = Menu::new();
         let app_menu = Submenu::new("GridCraft", true);
-        let about = MenuItem::with_id("dialog:about", "About GridCraft", true, None);
+        let about = MenuItem::with_id("dialog:about", language.tr("About GridCraft"), true, None);
         let _ = app_menu.append_items(&[
             &about,
             &PredefinedMenuItem::separator(),
@@ -219,16 +226,18 @@ impl NativeMenu {
         let mut theme_items = Vec::new();
         let mut window_menu = None;
         for (title, entries) in tree() {
-            let sub = Submenu::new(title, true);
+            let sub = Submenu::new(language.tr(title), true);
             for (label, id, acc) in entries {
                 if label == "-" {
                     let _ = sub.append(&PredefinedMenuItem::separator());
                     continue;
                 }
                 if id == "view.theme" {
-                    let themes = Submenu::new(label, true);
+                    // `Display Theme` in the bar, then the modes; both go through the catalog so a
+                    // translation can word them in the interface's own terms.
+                    let themes = Submenu::new(language.tr(label), true);
                     for (mode, label) in [("system", "System"), ("light", "Light"), ("dark", "Dark")] {
-                        let item = CheckMenuItem::with_id(format!("theme:{mode}"), label, true, false, None);
+                        let item = CheckMenuItem::with_id(format!("theme:{mode}"), language.tr(label), true, false, None);
                         let _ = themes.append(&item);
                         theme_items.push((mode, item));
                     }
@@ -236,7 +245,7 @@ impl NativeMenu {
                     continue;
                 }
                 let accel = acc.and_then(|a| Accelerator::from_str(a).ok());
-                let item = MenuItem::with_id(id, label, true, accel);
+                let item = MenuItem::with_id(id, language.tr(label), true, accel);
                 let _ = sub.append(&item);
             }
             let _ = menu.append(&sub);
@@ -257,7 +266,13 @@ impl NativeMenu {
             let _ = tx.send(e);
             ctx.request_repaint();
         }));
-        NativeMenu { _menu: menu, events: rx, theme_items }
+        NativeMenu { _menu: menu, events: rx, theme_items, language }
+    }
+
+    /// Whether the bar was built for a different language than the app now uses; macOS keeps its
+    /// menu until it is replaced, so the caller rebuilds rather than waiting for a restart.
+    pub fn needs_reinstall(&self, app: &SheetApp) -> bool {
+        self.language != app.ui.language
     }
 
     pub fn poll(&self, app: &mut SheetApp, ctx: &egui::Context) {
