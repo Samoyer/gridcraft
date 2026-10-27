@@ -208,7 +208,7 @@ fn format_chart(app: &mut SheetApp, ui: &mut Ui) {
         ui.horizontal(|ui| {
             for (l, v) in [("None", "none"), ("Legend|Bottom", "bottom"), ("Legend|Top", "top"), ("Legend|Left", "left"), ("Legend|Right", "right")] {
                 let cur = format!("{:?}", chart.legend).eq_ignore_ascii_case(v);
-                if ui.selectable_label(cur, l).clicked() {
+                if ui.selectable_label(cur, lang.tr(l)).clicked() {
                     app.run_or_alert("chart.set", json!({"chart": id, "legend": v}));
                 }
             }

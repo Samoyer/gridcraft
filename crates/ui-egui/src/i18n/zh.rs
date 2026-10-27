@@ -1575,6 +1575,8 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "TableStyle|Light" => "浅色",
         "TableStyle|Medium" => "中等",
         "Medium" => "中等",
+        "Page" => "第",
+        "of" => "页，共",
         _ => return None,
     })
 }

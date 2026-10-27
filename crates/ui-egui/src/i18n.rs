@@ -242,6 +242,9 @@ impl Language {
     fn fill_error_template(self, message: &str) -> Option<String> {
         for (english, translated) in self.error_templates() {
             let Some(values) = values_by_template(english, message) else { continue };
+            // The wrapped-message templates end in a message of their own; every other value the
+            // engine inserts is user data.
+            let is_wrapped_message = english.starts_with("command `");
             let mut out = String::with_capacity(translated.len() + message.len());
             let mut rest = *translated;
             let mut values = values.into_iter();
@@ -249,9 +252,16 @@ impl Language {
                 let (_, after_brace) = after.split_once('}')?;
                 out.push_str(before);
                 let value = values.next()?;
-                // A template can wrap another message (`command \`id\` is not available right
-                // now: <reason>`), so a value that is a message of its own is translated too.
-                out.push_str(self.tr(value));
+                // Most values are user data (a file name, a range, a number) and are inserted as
+                // they are: translating them could rename a file or read a `|` in a name as a
+                // context separator. Only a template that wraps another message
+                // (`command \`id\` is not available right now: <reason>`) has a value that is a
+                // message of its own, and that sentence is the last placeholder.
+                if is_wrapped_message {
+                    out.push_str(&self.tr_error(value));
+                } else {
+                    out.push_str(value);
+                }
                 rest = after_brace;
             }
             if values.next().is_some() {
