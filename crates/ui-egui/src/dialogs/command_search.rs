@@ -26,7 +26,14 @@ pub(super) fn command_search(app: &mut SheetApp, ui: &mut egui::Ui, d: &mut Dial
         .commands()
         .into_iter()
         .filter(|c| c.enabled)
-        .filter(|c| q.is_empty() || c.label.to_ascii_lowercase().contains(&q) || c.id.to_ascii_lowercase().contains(&q))
+        .filter(|c| {
+            q.is_empty()
+                || c.label.to_ascii_lowercase().contains(&q)
+                || c.id.to_ascii_lowercase().contains(&q)
+                // A user typing the interface language's word (`保存`) must find the command
+                // whose English label it translates.
+                || lang.tr(c.label).to_lowercase().contains(&q)
+        })
         .map(|c| (c.id.to_string(), c.label.to_string(), c.menu.join(" › ")))
         .take(40)
         .collect();

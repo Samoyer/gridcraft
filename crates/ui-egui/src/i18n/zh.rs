@@ -354,6 +354,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Account" => "账户",
         "Product Information" => "产品信息",
         "About GridCraft" => "关于 GridCraft",
+        "Quit GridCraft" => "退出 GridCraft",
         "Version" => "版本",
         "Platform" => "平台",
         "Licence" => "许可证",
@@ -672,7 +673,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Footer:" => "页脚:",
         "Forecast Sheet" => "预测工作表",
         "Forecast end (date or number; blank: a third of the history):" => "预测结束（日期或数字；留空则为历史数据的三分之一）:",
-        "Forecast start (a date or number in the history; blank: after the last point):" => "预测开始（历史数据中的日期或数字；留空则从最后一个数据点之后开始）:",
+        "Forecast start (a date or number in the history; blank: after the last point):" => {
+            "预测开始（历史数据中的日期或数字；留空则从最后一个数据点之后开始）:"
+        }
         "Format Cells" => "设置单元格格式",
         "Format Cells|Fill" => "填充",
         "Format Chart Area…" => "设置图表区格式…",
@@ -710,7 +713,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Group by Years" => "按年组合",
         "Grouped By:" => "分组依据:",
         "Growth" => "增长",
-        "Header (&L left, &C center, &R right; &P page, &N pages, &D date, &A sheet):" => "页眉（&L 左、&C 中、&R 右；&P 页码、&N 总页数、&D 日期、&A 工作表）:",
+        "Header (&L left, &C center, &R right; &P page, &N pages, &D date, &A sheet):" => {
+            "页眉（&L 左、&C 中、&R 右；&P 页码、&N 总页数、&D 日期、&A 工作表）:"
+        }
         "Header (in):" => "页眉（英寸）:",
         "Heading 1" => "标题 1",
         "Heading 2" => "标题 2",
@@ -901,7 +906,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Protect Sheet" => "保护工作表",
         "Protect Structure and Windows" => "保护结构和窗口",
         "Protect Workbook structure" => "保护工作簿结构",
-        "Protect workbook for: Structure (sheets can't be added, moved, renamed, hidden or deleted)." => "保护工作簿的结构（不能添加、移动、重命名、隐藏或删除工作表）。",
+        "Protect workbook for: Structure (sheets can't be added, moved, renamed, hidden or deleted)." => {
+            "保护工作簿的结构（不能添加、移动、重命名、隐藏或删除工作表）。"
+        }
         "Protection" => "保护",
         "Purple" => "紫色",
         "Quarterly Sales Dashboard" => "季度销售仪表板",
@@ -1266,7 +1273,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Column width must be between 0 and 255 characters." => "列宽必须在 0 到 255 个字符之间。",
         "Constraint cells must be on the objective cell's sheet." => "约束单元格必须与目标单元格位于同一工作表。",
         "Each input range needs at least two numbers." => "每个输入区域至少需要两个数字。",
-        "Excel 97-2003 (.xls) is supported for import only. Save as .xlsx or another supported export format." => "Excel 97-2003 (.xls) 仅支持导入。请另存为 .xlsx 或其他受支持的导出格式。",
+        "Excel 97-2003 (.xls) is supported for import only. Save as .xlsx or another supported export format." => {
+            "Excel 97-2003 (.xls) 仅支持导入。请另存为 .xlsx 或其他受支持的导出格式。"
+        }
         "Go To selects at most {GO_TO_MAX_AREAS} areas." => "定位最多选择 {GO_TO_MAX_AREAS} 个区域。",
         "Input X range must have {MAX_REGRESSORS} columns or fewer." => "输入 X 区域最多只能有 {MAX_REGRESSORS} 列。",
         "Input Y range and input X range must have the same number of rows." => "输入 Y 区域与输入 X 区域的行数必须相同。",
@@ -1275,7 +1284,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Input range contains non-numeric data." => "输入区域包含非数字数据。",
         "Input range must be a single row or column." => "输入区域必须是单行或单列。",
         "Input ranges must have the same number of values." => "各输入区域的数值个数必须相同。",
-        "Insert Cut Cells works on whole rows or columns; cut whole rows or columns, or use Paste." => "插入剪切单元格仅适用于整行或整列；请剪切整行或整列，或改用粘贴。",
+        "Insert Cut Cells works on whole rows or columns; cut whole rows or columns, or use Paste." => {
+            "插入剪切单元格仅适用于整行或整列；请剪切整行或整列，或改用粘贴。"
+        }
         "Integer and binary constraints must be on variable cells." => "整数约束和二进制约束必须作用于可变单元格。",
         "Multi-cell array formulas aren't allowed in tables." => "表格中不允许使用多单元格数组公式。",
         "No cells were found." => "未找到任何单元格。",
@@ -1283,7 +1294,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "No sheets are hidden." => "没有隐藏的工作表。",
         "Nothing to import." => "没有可导入的内容。",
         "Nothing to paste." => "没有可粘贴的内容。",
-        "ODS is supported for data import only. Save as .xlsx or another supported export format." => "ODS 仅支持数据导入。请另存为 .xlsx 或其他受支持的导出格式。",
+        "ODS is supported for data import only. Save as .xlsx or another supported export format." => {
+            "ODS 仅支持数据导入。请另存为 .xlsx 或其他受支持的导出格式。"
+        }
         "Pick up a format first." => "请先获取格式。",
         "Reference isn't valid." => "引用无效。",
         "Row height must be between 0 and 409.5 points." => "行高必须在 0 到 409.5 磅之间。",
@@ -1298,7 +1311,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "The bin range holds no numbers." => "箱区域中没有数字。",
         "The cell has no formula." => "该单元格没有公式。",
         "The cell or chart you're trying to change is on a protected sheet." => "要更改的单元格或图表位于受保护的工作表上。",
-        "The cell you are trying to change is on a protected sheet that does not allow selecting it." => "要更改的单元格位于受保护的工作表上，且不允许选中它。",
+        "The cell you are trying to change is on a protected sheet that does not allow selecting it." => {
+            "要更改的单元格位于受保护的工作表上，且不允许选中它。"
+        }
         "The cell you're trying to change is on a protected sheet." => "要更改的单元格位于受保护的工作表上。",
         "The consolidated data doesn't fit below and right of the destination." => "汇总数据无法容纳在目标位置的右下方。",
         "The constraint's two sides must be the same size (or the right side one cell)." => "约束两侧的大小必须相同（或右侧为一个单元格）。",
@@ -1315,7 +1330,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "The fill is too large." => "填充范围过大。",
         "The forecast end must be after the last point of the timeline." => "预测结束必须晚于时间轴的最后一个数据点。",
         "The forecast start needs at least two values before it to fit the forecast." => "预测开始之前至少需要两个数值才能拟合预测。",
-        "The headers must remain in the same row, and the resulting table range must overlap the original table range." => "标题必须留在同一行，且生成的表格区域必须与原表格区域重叠。",
+        "The headers must remain in the same row, and the resulting table range must overlap the original table range." => {
+            "标题必须留在同一行，且生成的表格区域必须与原表格区域重叠。"
+        }
         "The input range holds no numbers." => "输入区域中没有数字。",
         "The interval must be a whole number from 1 to the number of data points." => "间隔必须是 1 到数据点个数之间的整数。",
         "The name entered already exists. Enter a unique name." => "输入的名称已存在，请输入唯一名称。",
@@ -1323,16 +1340,22 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "The number must be between 1 and 409." => "数字必须在 1 到 409 之间。",
         "The objective cell must contain a formula." => "目标单元格必须包含公式。",
         "The objective must be a single cell." => "目标必须是单个单元格。",
-        "The output range {} {OVERWRITE_ERROR}; pass overwrite: true to replace it." => "输出区域 {} {OVERWRITE_ERROR}；传入 overwrite: true 以覆盖。",
+        "The output range {} {OVERWRITE_ERROR}; pass overwrite: true to replace it." => {
+            "输出区域 {} {OVERWRITE_ERROR}；传入 overwrite: true 以覆盖。"
+        }
         "The password you supplied is not correct." => "提供的密码不正确。",
         "The report doesn't fit on the sheet below and right of the output cell." => "报告无法容纳在输出单元格的右下方。",
-        "The sheet is protected with a password. Unprotect it first (Review › Unprotect Sheet)." => "该工作表已用密码保护。请先撤销保护（审阅 › 撤销工作表保护）。",
+        "The sheet is protected with a password. Unprotect it first (Review › Unprotect Sheet)." => {
+            "该工作表已用密码保护。请先撤销保护（审阅 › 撤销工作表保护）。"
+        }
         "The timeline must hold numbers or dates ({} isn't one)." => "时间轴必须包含数字或日期（{} 不是）。",
         "The timeline needs at least two points a constant step apart." => "时间轴至少需要两个等距的数据点。",
         "The variable cells must be a reference like B2:B4." => "可变单元格必须是类似 B2:B4 的引用。",
         "The variable cells must be on the objective cell's sheet." => "可变单元格必须与目标单元格位于同一工作表。",
         "The weekday series runs past the supported date range." => "工作日序列超出了支持的日期范围。",
-        "The workbook has a defined name '{}', which GridCraft needs for its own data. Rename it first." => "工作簿含已定义名称 '{}'，GridCraft 需要用它保存自身数据。请先重命名。",
+        "The workbook has a defined name '{}', which GridCraft needs for its own data. Rename it first." => {
+            "工作簿含已定义名称 '{}'，GridCraft 需要用它保存自身数据。请先重命名。"
+        }
         "The workbook is protected and cannot be changed." => "工作簿受保护，无法更改。",
         "There are no comments in this workbook." => "此工作簿中没有批注。",
         "There are no scenarios on this sheet." => "此工作表中没有方案。",
@@ -1361,13 +1384,21 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Unprotect the sheet to change its edit ranges." => "请撤销工作表保护以更改其编辑区域。",
         "Variable cells must hold constants, not formulas." => "可变单元格必须包含常量，不能包含公式。",
         "We can't import '{name}': {e}" => "无法导入 '{name}'：{e}",
-        "We can't open '{name}': the encrypted file is damaged (it holds another encrypted file)." => "无法打开 '{name}'：加密文件已损坏（其中包含另一个加密文件）。",
+        "We can't open '{name}': the encrypted file is damaged (it holds another encrypted file)." => {
+            "无法打开 '{name}'：加密文件已损坏（其中包含另一个加密文件）。"
+        }
         "We can't open '{name}': {e}" => "无法打开 '{name}'：{e}",
         "We couldn't find what you were looking for: {what}" => "未找到要查找的内容：{what}",
-        "We looked at all the data next to your selection and didn't see a pattern for filling in values for you." => "已检查所选区域旁的所有数据，未发现可供填充的规律。",
-        "XLSB is supported for data import only. Save as .xlsx or another supported export format." => "XLSB 仅支持数据导入。请另存为 .xlsx 或其他受支持的导出格式。",
+        "We looked at all the data next to your selection and didn't see a pattern for filling in values for you." => {
+            "已检查所选区域旁的所有数据，未发现可供填充的规律。"
+        }
+        "XLSB is supported for data import only. Save as .xlsx or another supported export format." => {
+            "XLSB 仅支持数据导入。请另存为 .xlsx 或其他受支持的导出格式。"
+        }
         "You can't change part of an array." => "不能更改数组的一部分。",
-        "Locking cells or hiding formulas has no effect until you protect the worksheet (Review › Protect Sheet)." => "锁定单元格或隐藏公式只有在保护工作表后才生效（审阅 › 保护工作表）。",
+        "Locking cells or hiding formulas has no effect until you protect the worksheet (Review › Protect Sheet)." => {
+            "锁定单元格或隐藏公式只有在保护工作表后才生效（审阅 › 保护工作表）。"
+        }
         "Auto Fill Options" => "自动填充选项",
         "Constraint Operator" => "约束运算符",
         "Could not check for updates: {error}" => "无法检查更新：{error}",
@@ -1394,11 +1425,15 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "(Select All Search Results)" => "（全选搜索结果）",
         "(Select All)" => "（全选）",
         "Display name" => "显示名称",
-        "Evolutionary: a genetic search for models that aren't smooth; every variable cell needs bounds." => "演化：对非平滑模型进行遗传搜索；每个可变单元格都需要边界。",
+        "Evolutionary: a genetic search for models that aren't smooth; every variable cell needs bounds." => {
+            "演化：对非平滑模型进行遗传搜索；每个可变单元格都需要边界。"
+        }
         "GRG Nonlinear: a local optimum of a smooth model, from the current values." => "非线性 GRG：从当前值出发，求解平滑模型的局部最优解。",
         "Grab bag" => "杂项列表",
         "Real name" => "真实姓名",
-        "Simplex LP: for linear models; integer and binary constraints by branch and bound." => "单纯线性规划：适用于线性模型；整数和二进制约束采用分支定界法。",
+        "Simplex LP: for linear models; integer and binary constraints by branch and bound." => {
+            "单纯线性规划：适用于线性模型；整数和二进制约束采用分支定界法。"
+        }
         "Username" => "用户名",
         "Preview" => "预览",
         "Sort On" => "排序依据",
@@ -1412,8 +1447,12 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "there are no comments in this workbook" => "此工作簿中没有批注",
         "Cell" => "单元格",
         "Formula" => "公式",
-        "GridCraft is fully drivable by agents. Every menu item, button and gesture is a command:" => "GridCraft 可完全由智能体驱动。每个菜单项、按钮和手势都是一个命令：",
-        "Automation in this workbook. GridCraft runs its own scripts; a file's VBA project is preserved but not executed." => "此工作簿中的自动化。GridCraft 运行自身的脚本；文件中的 VBA 工程会被保留，但不会执行。",
+        "GridCraft is fully drivable by agents. Every menu item, button and gesture is a command:" => {
+            "GridCraft 可完全由智能体驱动。每个菜单项、按钮和手势都是一个命令："
+        }
+        "Automation in this workbook. GridCraft runs its own scripts; a file's VBA project is preserved but not executed." => {
+            "此工作簿中的自动化。GridCraft 运行自身的脚本；文件中的 VBA 工程会被保留，但不会执行。"
+        }
         "Encode Workbook" => "编码工作簿",
         "Enter Cell" => "输入单元格",
         "Maximum" => "最大值",
@@ -1571,6 +1610,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Resize Table" => "调整表格大小",
         "Height" => "高度",
         "Width" => "宽度",
+        "pixels" => "像素",
         "TableStyle|Dark" => "深色",
         "TableStyle|Light" => "浅色",
         "TableStyle|Medium" => "中等",
