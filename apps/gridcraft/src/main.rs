@@ -51,8 +51,6 @@ impl eframe::App for App {
                 }
             }
             apple_events::poll(&self.3, &mut self.0, ctx);
-            }
-            apple_events::poll(&self.3, &mut self.0, ctx);
         }
         self.0.logic(ctx);
         self.1.logic(&mut self.0, ctx);
