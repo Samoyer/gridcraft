@@ -16,6 +16,7 @@ pub fn show(app: &mut SheetApp, ui: &mut Ui) {
         app.run_or_alert("review.showComments", json!({"on": false}));
     }
     let Some(pane) = app.grid.pane.clone().or_else(|| app.session.comments_pane.then(|| "comments".to_string())) else { return };
+    let lang = app.ui.language;
     let t = Tokens::get(ui.ctx());
     // Capped at half the window so a pane can never cover the sheet, whatever its content asks for.
     let max = (ui.available_width() / 2.0).max(300.0);
@@ -29,7 +30,7 @@ pub fn show(app: &mut SheetApp, ui: &mut Ui) {
                 "formatChart" => "Format Chart Area",
                 _ => "",
             };
-            ui.label(egui::RichText::new(title).font(theme::ui_bold(15.0)));
+            ui.label(egui::RichText::new(lang.tr(title)).font(theme::ui_bold(15.0)));
             ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
                 if crate::widgets::icon_button(ui, crate::icons::Icon::Close, t.text_dim, "Close", vec2(22.0, 22.0)).clicked() {
                     if pane == "comments" {
@@ -185,7 +186,7 @@ fn format_chart(app: &mut SheetApp, ui: &mut Ui) {
             app.run_or_alert("chart.set", json!({"chart": id, "title": title}));
         }
     });
-    ui.collapsing("Chart Type", |ui| {
+    ui.collapsing(lang.tr("Chart Type"), |ui| {
         ui.horizontal_wrapped(|ui| {
             for (l, k, s) in [
                 ("Column", "column", ""),
@@ -205,13 +206,13 @@ fn format_chart(app: &mut SheetApp, ui: &mut Ui) {
                 ("Radar", "radar", ""),
             ] {
                 let cur = chart.kind == gridcraft_engine::cmd::insert::chart_kind(k, s);
-                if ui.selectable_label(cur, l).clicked() {
+                if ui.selectable_label(cur, lang.tr(l)).clicked() {
                     app.run_or_alert("chart.set", json!({"chart": id, "type": k, "subtype": s}));
                 }
             }
         });
     });
-    ui.collapsing("Legend", |ui| {
+    ui.collapsing(lang.tr("Legend"), |ui| {
         ui.horizontal(|ui| {
             for (l, v) in [("None", "none"), ("Legend|Bottom", "bottom"), ("Legend|Top", "top"), ("Legend|Left", "left"), ("Legend|Right", "right")] {
                 let cur = format!("{:?}", chart.legend).eq_ignore_ascii_case(v);
@@ -245,7 +246,7 @@ fn format_chart(app: &mut SheetApp, ui: &mut Ui) {
             }
         });
     });
-    ui.collapsing("Series", |ui| {
+    ui.collapsing(lang.tr("Series"), |ui| {
         let data = app.session.active().map(|d| gridcraft_chart::resolve(&d.wb, d.wb.active_sheet(), &chart));
         for (i, s) in chart.series.iter().enumerate() {
             let name = data.as_ref().and_then(|d| d.series.get(i)).map(|x| x.name.clone()).unwrap_or_else(|| format!("Series {}", i + 1));
@@ -257,7 +258,7 @@ fn format_chart(app: &mut SheetApp, ui: &mut Ui) {
                 ui.label(&name);
                 ui.label(egui::RichText::new(&s.values).small().color(crate::theme::Tokens::get(ui.ctx()).text_dim));
                 ui.menu_button(lang.tr("Fill…"), |ui| {
-                    if let Some(c) = crate::widgets::color_palette_fixed(ui, &theme.colors, "Automatic") {
+                    if let Some(c) = crate::widgets::color_palette_fixed(ui, &theme.colors, lang.tr("Automatic")) {
                         app.run_or_alert(
                             "chart.formatSelection",
                             json!({"chart": id, "series": i, "color": if c == "none" { Json::Null } else { json!(c) }}),
@@ -284,7 +285,7 @@ fn format_chart(app: &mut SheetApp, ui: &mut Ui) {
             }
         });
     });
-    ui.collapsing("Size", |ui| {
+    ui.collapsing(lang.tr("Size"), |ui| {
         // Keep the value being typed or dragged between frames; reloading it from the chart every frame threw the edit away.
         let draft = egui::Id::unique(("gridcraft.chart_size_draft", id));
         let (mut w, mut h) = ui.data_mut(|d| d.get_temp::<(f32, f32)>(draft)).unwrap_or((chart.anchor.width, chart.anchor.height));

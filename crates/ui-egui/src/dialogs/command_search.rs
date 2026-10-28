@@ -20,7 +20,10 @@ pub(super) fn command_search(app: &mut SheetApp, ui: &mut egui::Ui, d: &mut Dial
         d.focus_initialized = true;
     }
 
-    let q = d.search.to_ascii_lowercase();
+    // Lowercase the query the same Unicode-aware way as the strings it is matched against: an
+    // uppercase Greek or Cyrillic query would otherwise never match the lowercased translated
+    // label (`to_ascii_lowercase` leaves non-ASCII letters alone).
+    let q = d.search.to_lowercase();
     let cmds: Vec<(String, String, String)> = app
         .session
         .commands()
@@ -28,13 +31,15 @@ pub(super) fn command_search(app: &mut SheetApp, ui: &mut egui::Ui, d: &mut Dial
         .filter(|c| c.enabled)
         .filter(|c| {
             q.is_empty()
-                || c.label.to_ascii_lowercase().contains(&q)
-                || c.id.to_ascii_lowercase().contains(&q)
+                || c.label.to_lowercase().contains(&q)
+                || c.id.to_lowercase().contains(&q)
                 // A user typing the interface language's word (`保存`) must find the command
                 // whose English label it translates.
                 || lang.tr(c.label).to_lowercase().contains(&q)
         })
-        .map(|c| (c.id.to_string(), c.label.to_string(), c.menu.join(" › ")))
+        // The row shows the label in the interface language (a Chinese user searching `保存` must
+        // read `保存`, not `Save`); the id it runs stays the engine's.
+        .map(|c| (c.id.to_string(), lang.tr(c.label).to_string(), c.menu.iter().map(|m| lang.tr(m)).collect::<Vec<_>>().join(" › ")))
         .take(40)
         .collect();
 
