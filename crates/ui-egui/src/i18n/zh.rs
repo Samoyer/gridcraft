@@ -1620,6 +1620,13 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Medium" => "中等",
         "Page" => "第",
         "of" => "页，共",
+        "Record Macro" => "录制宏",
+        "Stop Recording" => "停止录制",
+        "Use Relative References" => "使用相对引用",
+        "Run\nMacro" => "运行宏",
+        "Macros…" => "宏…",
+        "Recording" => "正在录制",
+        "New Macro" => "新建宏",
         _ => return None,
     })
 }

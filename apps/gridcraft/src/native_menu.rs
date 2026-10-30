@@ -5,6 +5,10 @@
 //! follows the interface language. macOS builds its menu once, so a language change rebuilds it
 //! ([`NativeMenu::needs_reinstall`]).
 
+// This file is also compiled as a module of the `mac_menu_appkit` integration test, where only
+// `install` is used; keep the test target free of dead-code warnings.
+#![allow(dead_code, unused_imports)]
+
 use std::str::FromStr;
 use std::sync::mpsc::{Receiver, channel};
 
@@ -404,6 +408,7 @@ impl NativeMenu {
 }
 
 #[cfg(test)]
+#[allow(dead_code, unused_imports)]
 mod tests {
     use super::*;
 
